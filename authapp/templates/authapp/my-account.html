@@ -1,0 +1,115 @@
+{% extends 'baseapp/index.html' %}
+
+{% block title %}
+
+<title>ЦВЕТЫ ОПТОМ В МОСКВЕ</title>
+
+{% endblock %}
+
+{% block content %}
+        <!-- my account start -->
+        <div class="checkout-area pb-55 pt-75">
+            <div class="container">
+                <div class="row">
+                    <div class="ml-auto mr-auto col-lg-9">
+                        <div class="checkout-wrapper">
+                            <div id="faq" class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title"><a data-toggle="collapse" data-parent="#faq" >Данные Вашего профиля </a></h5>
+                                    </div>
+                                    <div id="my-account-1" class="panel-collapse collapse show">
+                                        <div class="panel-body">
+                                            <div class="billing-information-wrapper">   
+                                                <form action="{% url 'save_profile' %}" method="POST">
+                                                    {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="billing-info">
+                                                            <label>Имя</label>
+                                                            <input type="text" name="userfirst_name" value="{{ buyer.first_name }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="billing-info">
+                                                            <label>Фамилия</label>
+                                                            <input type="text" name="userlast_name" value="{{ buyer.last_name }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="billing-info">
+                                                            <label>Компания</label>
+                                                            <input type="text" name="companyname" value="{{ buyer.name }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="billing-info">
+                                                            <label>Email</label>
+                                                            <input type="email" name="useremail" value="{{ buyer.email }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="billing-info">
+                                                            <label>Телефон</label>
+                                                            <input type="tel" name="usertel" value="{{ buyer.Phone }}" required>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="billing-back-btn">
+                                                    <div class="billing-back">
+                                                    </div>
+                                                    <div class="billing-btn">
+                                                        <button type="submit">Сохранить</button>
+                                                    </div>
+                                                </div>
+                                            </form>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title"><span></span> <a data-toggle="collapse" data-parent="#faq" >Изменить пароль учетной записи </a></h5>
+                                    </div>
+                                    <div id="my-account-2" class="panel-collapse collapse show">
+                                        <div class="panel-body">
+                                            <div class="billing-information-wrapper"> 
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="billing-info">
+                                                            <label>Актуальный пароль</label>
+                                                            <input type="password" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="billing-info">
+                                                            <label>Новый пароль</label>
+                                                            <input type="password" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="billing-info">
+                                                            <label>Подтвердите новый пароль</label>
+                                                            <input type="password" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="billing-back-btn">
+                                                    <div class="billing-back">
+                                                    </div>
+                                                    <div class="billing-btn">
+                                                        <button type="submit">Изменить пароль</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}        

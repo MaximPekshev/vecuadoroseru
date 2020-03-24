@@ -1,0 +1,250 @@
+{% extends "baseapp/index.html "%}
+
+{% load static %}
+
+{% block title %}
+
+<title>ЦВЕТЫ ОПТОМ В МОСКВЕ</title>
+
+{% endblock %}
+        
+{% block content %}
+        <div class="breadcrumb-area gray-bg">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="{% url 'show_index' %}">Home</a></li>
+                        <li><a href="{% url 'show_catalog' %}">Каталог</a></li> 
+                        <li class="active">{{ category }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="shop-page-area pt-75 pb-75">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-12">
+                        <!-- <div class="banner-area pb-30">
+                            <a href="product-details.html"><img alt="" src="{% static 'img/banner/banner-49.jpg'%}"></a>
+                        </div> -->
+                        <div class="shop-topbar-wrapper">
+                            <div class="shop-topbar-left">
+                                <ul class="view-mode">
+                                    <li class="active"><a href="#product-grid" data-view="product-grid"><i class="fa fa-th"></i></a></li>
+                                    <li><a href="#product-list" data-view="product-list"><i class="fa fa-list-ul"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-sorting-wrapper">
+                                <div class="product-shorting shorting-style">
+                                    <label>View:</label>
+                                    <select>
+                                        <option value=""> 20</option>
+                                        <option value=""> 23</option>
+                                        <option value=""> 30</option>
+                                    </select>
+                                </div>
+                                <div class="product-show shorting-style">
+                                    <label>Sort by:</label>
+                                    <select>
+                                        <option value="">Default</option>
+                                        <option value=""> Name</option>
+                                        <option value=""> price</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-list-product-wrapper">
+
+                            
+
+                            <div class="product-grid product-view pb-20">
+                                <div class="row">
+                                    {% for item in page_object.object_list %}
+                                        <div class="product-width col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 mb-30">
+                                            <div class="product-wrapper">
+                                                <div class="product-img">
+                                                    <a href="{% url 'show_catalog' %}?id={{ item.good.slug }}">
+                                                        <img alt="" src="{{ item.main_images.image270.url }}">
+                                                    </a>
+                                                    {% if item.discount %}
+
+                                                        <span>-{{ item.discount }}%</span>
+
+                                                    {% endif %}
+                                                    <div class="product-action">
+                                                        <a class="action-wishlist" href="#" title="Wishlist">
+                                                            <i class="icon-heart"></i>
+                                                        </a>
+                                                        <a class="action-cart" href="#" title="Add To Cart">
+                                                            <i class="icon-handbag"></i>
+                                                        </a>
+                                                        <a class="action-compare" href="#" data-target="#{{ item.good.slug }}" data-toggle="modal" title="Quick View">
+                                                            <i class="icon-magnifier-add"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <h4>
+                                                        <a href="product-details.html">{{ item.good }}</a>
+                                                    </h4>
+                                                    <div class="product-price-wrapper">
+                                                        {% if item.good.old_price %}
+                                                            <span>${{ item.good.price }}</span>
+                                                            <span class="product-price-old">${{ item.good.old_price }} </span>
+                                                        {% else %}
+                                                            <span>${{ item.good.price }}</span>   
+
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="product-list-details">
+                                                    <h4>
+                                                        <a href="product-details.html">{{ item.good }}</a>
+                                                    </h4>
+                                                    <div class="product-price-wrapper">
+                                                        {% if item.good.old_price %}
+                                                            <span>${{ item.good.price }}</span>
+                                                            <span class="product-price-old">${{ item.good.old_price }} </span>
+                                                        {% else %}
+                                                            <span>${{ item.good.price }}</span>   
+
+                                                        {% endif %}
+                                                    </div>
+                                                    <p>{{ item.good.description|slice:":255" }}</p>
+                                                    <div class="shop-list-cart-wishlist">
+                                                        <a href="#" title="Wishlist"><i class="icon-heart"></i></a>
+                                                        <a href="#" title="Add To Cart"><i class="icon-handbag"></i></a>
+                                                        <a href="#" data-target="#{{ item.good.slug }}" data-toggle="modal" title="Quick View">
+                                                            <i class="icon-magnifier-add"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade modal-wiew-product-detail" id="{{ item.good.slug }}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                <!-- Thumbnail Large Image start -->
+                                                               
+                                                                <div class="tab-content"> 
+                                                                    
+                                                                    <div id="pro-{{ item.main_images.slug }}" class="tab-pane fade show active">
+                                                                        <img src="{{ item.main_images.image570.url }}" alt="">
+                                                                    </div>
+                                                                    {% for img in item.images %}
+                                                                        <div id="pro-{{ img.slug }}" class="tab-pane fade">
+                                                                            <img src="{{ img.image570.url }}" alt="">
+                                                                        </div>
+                                                                    {% endfor %}
+                                                               
+                                                                </div>
+                                                                <!-- Thumbnail Large Image End -->
+                                                                <!-- Thumbnail Image End -->
+                                                                <div class="product-thumbnail">
+                                                                    <div class="thumb-menu owl-carousel nav nav-style" role="tablist">
+                                                                        
+                                                                        <a class="active" data-toggle="tab" href="#pro-{{ item.main_images.slug }}"><img src="{{ item.main_images.image90.url }}" alt=""></a>
+                                                                        {% for img in item.images %}
+                                                                            <a data-toggle="tab" href="#pro-{{ img.slug }}"><img src="{{ img.image90.url }}" alt=""></a>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <!-- Thumbnail image end -->
+                                                            </div>
+                                                            
+                                                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                                                <div class="modal-pro-content">
+                                                                    <h3>{{ item.good }}</h3>
+                                                                    <div class="product-price-wrapper">
+                                                                        {% if item.good.old_price %}
+                                                                            <span>${{ item.good.price }}</span>
+                                                                            <span class="product-price-old">${{ item.good.old_price }} </span>
+                                                                        {% else %}
+                                                                            <span>${{ item.good.price }}</span>   
+
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    <p>{{ item.good.description|slice:":255" }}</p>    
+                                                                    <div class="quick-view-select">
+
+                                                                        <div class="quickview-color-wrap">
+                                                                            <label>Color*</label>
+                                                                            <div class="quickview-color">
+                                                                                <ul>
+                                                                                    <li class="blue">b</li>
+                                                                                    <li class="red">r</li>
+                                                                                    <li class="pink">p</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-quantity">
+                                                                        <div class="cart-plus-minus">
+                                                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                                                        </div>
+                                                                        <button>Add to cart</button>
+                                                                    </div>
+                                                                    {% if item.good.quantity > 0 %}
+                                                                    <span><i class="fa fa-check"></i> В наличии</span>
+                                                                    {% else %}
+                                                                    <span><i class="fa fa-times-circle" style="color: red"></i> Нет в наличии</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            
+
+                            {% if is_paginated %}
+
+
+                                <div class="pagination-total-pages">
+                                    <div class="pagination-style">
+                                        <ul>
+                                            <li><a class="prev-next prev" href="{{ prev_url  }}{% if page_object.has_previous %}&category={{category}}{% endif %}"><i class="ion-ios-arrow-left"></i> Prev</a></li>
+
+                                            {% for n in page_object.paginator.page_range %}
+
+                                                {% if page_object.number == n %}
+
+                                                    <li><a class="active" href="?page={{ n }}&category={{category}}">{{ n }}</a></li>
+
+                                                {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}  
+
+                                                    <li><a href="?page={{ n }}&category={{category}}">{{ n }}</a></li>
+
+                                                {% endif %}
+
+                                            {% endfor %}
+                                            <li><a class="prev-next next" href="{{ next_url }}{% if page_object.has_next %}&category={{category}}{% endif %}">Next<i class="ion-ios-arrow-right"></i> </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="total-pages">
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+           
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'baseapp/index.html' %}
+
+{% load static %}
+
+{% block title %}
+
+<title>ЦВЕТЫ ОПТОМ В МОСКВЕ</title>
+
+{% endblock %}
+
+{% block content %}
+     
+
+        <div class="breadcrumb-area gray-bg">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li class="active"> Оформление заказа </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- checkout-area start -->
+        <div class="checkout-area pb-45 pt-65">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="checkout-wrapper">
+                            <div id="faq" class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title"><a>Информация о покупателе:</a></h5>
+                                    </div>
+                                    <div >
+                                        <div class="panel-body">                                            
+                                            <div class="billing-information-wrapper">
+                                                <form id="checkout" action="{% url 'place_order' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label>Фамилия</label>
+                                                                <input type="text" name="userlast_name" required  {% if user.is_authenticated %} value="{{ buyer.last_name }}" {% endif %}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label>Имя</label>
+                                                                <input type="text" name="userfirst_name" required  {% if user.is_authenticated %} value="{{ buyer.first_name }}" {% endif %}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label>Компания</label>
+                                                                <input type="text" name="companyname" {% if user.is_authenticated %} value="{{ buyer.name }}" {% endif %}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label>Email</label>
+                                                                <input type="email" name="useremail" required {% if user.is_authenticated %} value="{{ buyer.email }}" {% endif %}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label>Телефон</label>
+                                                                <input type="text" name="usertel" placeholder="+7 800 000 00 00" required {% if user.is_authenticated %} value="{{ buyer.Phone }}" {% endif %}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="billing-back-btn ml-15">
+                                                            {% if not  user.is_authenticated %}
+                                                            <span>
+                                                            * Чтобы отслеживать историю заказов, необходимо
+                                                                <a href="{% url 'login_register' %}"> авторизоваться.</a>
+                                                            </span>
+                                                            {% endif %}                                                               
+                                                        </div>    
+                                                    </div>
+                                                </form> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title"><a>Информация по заказу:</a></h5>
+                                    </div>
+                                    <div>
+                                        <div class="panel-body">
+                                            <div class="order-review-wrapper">
+                                                <div class="order-review">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="width-1">Наименование</th>
+                                                                    <th class="width-2">Цена</th>
+                                                                    <th class="width-3">Количество</th>
+                                                                    <th class="width-4">Сумма</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for item in cr_table %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="o-pro-dec">
+                                                                            <p>{{ item.good }}</p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="o-pro-price">
+                                                                            <p>&#8381 {{ item.price }}</p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="o-pro-qty">
+                                                                            <p>{{ item.quantity }}</p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="o-pro-subtotal">
+                                                                            <p>&#8381 {{ item.summ }}</p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>    
+                                                                {% endfor %}
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="3">ИТОГО: </td>
+                                                                    <td colspan="1">&#8381 {{ cr_summ }}</td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <div class="billing-back-btn">
+                                                        <span>
+                                                        </span>
+                                                        <div class="billing-btn">
+                                                            <button type="submit" form="checkout"> Отправить заказ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}        

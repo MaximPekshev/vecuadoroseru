@@ -1,0 +1,88 @@
+{% extends "baseapp/index.html "%}
+
+{% block title %}
+
+<title>ЦВЕТЫ ОПТОМ В МОСКВЕ | {{ good }}</title>
+
+{% endblock %}
+        
+{% block content %}
+        
+
+        <div class="breadcrumb-area gray-bg">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="{% url 'show_index' %}">Главная</a></li>
+                        <li class="active">{{ good }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="product-details pt-75 pb-65">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="product-details-img">
+                            <img class="zoompro" src="{{ main_pictures.image570.url }}" data-zoom-image="{{ main_pictures.image1200.url }}" alt="zoom"/>
+                            <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
+                                {% for img in pictures %}
+                                <a data-image="{{ img.image570.url }}" data-zoom-image="{{ img.image1200.url }}">
+                                    <img src="{{ img.image90.url }}" alt="">
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% if discount %}
+
+                                <span>-{{ discount }}%</span>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="product-details-content">
+                            <h4>{{ good.name }}</h4>
+                            <div class="mb-30"></div>
+                             <div class="product-price-wrapper">
+                                {% if good.old_price %}
+                                    <span style="font-size:200%">&#8381 {{ good.price }}</span>
+                                    <span class="product-price-old" style="font-size:200%">&#8381 {{ good.old_price }} </span>
+                                {% else %}
+                                    <span style="font-size:200%" >&#8381 {{ good.price }}</span>   
+
+                                {% endif %}
+                            </div>
+                            <div class="mb-30"></div>
+                            <p>{{ good.description|linebreaksbr }}</p>
+                            <div class="in-stock">
+                                {% if good.quantity > 0 %}
+
+                                <p>Наличие: <span>В наличии</span></p>
+
+                                {% else %}
+
+                                <p>Наличие: <span>Нет в наличии</span></p>   
+
+                                {% endif %}
+                            </div>
+                           
+                            <div class="quality-add-to-cart mb-30">
+                                <form id="good-quantity" action="{% url 'cart_add_item' slug=good.slug %}" method="POST">
+                                {% csrf_token %}    
+                                    <div class="quality"> 
+                                        <label>Кол-во:</label>
+                                        <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
+                                    </div>
+                                </form>
+                                <div class="product-quantity">
+                                    <button type="submit" form="good-quantity">В корзину</button>
+                                </div>                               
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+{% endblock %}        
