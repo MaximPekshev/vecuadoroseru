@@ -53,8 +53,9 @@ def show_index(request):
 			'catalog_table': table,
 
 		}
+		if context:
 
-		context.update(get_cart_header(request))
+			context.update(get_cart_header(request))
 
 	return render(request, 'baseapp/index.html', context)
 	
